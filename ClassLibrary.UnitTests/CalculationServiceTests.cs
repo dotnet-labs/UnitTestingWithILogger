@@ -1,4 +1,4 @@
-using ClassLibrary.UnitTests.Helpers;
+using System;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
@@ -59,13 +59,28 @@ namespace ClassLibrary.UnitTests
         {
             var loggerMock = new Mock<ILogger<CalculationService>>();
             var svc = new CalculationService(loggerMock.Object);
+
             var result = svc.AddTwoPositiveNumbers(1, 2);
             Assert.AreEqual(3, result);
-            loggerMock.VerifyLog(LogLevel.Information, "Adding 1 and 2");
+            loggerMock.Verify(
+                m => m.Log(
+                    LogLevel.Information,
+                    It.IsAny<EventId>(),
+                    It.Is<It.IsAnyType>((v, _) => v.ToString().Contains("Adding 1 and 2")),
+                    null,
+                    It.IsAny<Func<It.IsAnyType, Exception, string>>()),
+                Times.Once);
 
             result = svc.AddTwoPositiveNumbers(-1, 1);
             Assert.AreEqual(0, result);
-            loggerMock.VerifyLog(LogLevel.Error, "Arguments should be both positive.", Times.Once());
+            loggerMock.Verify(
+                m => m.Log(
+                    LogLevel.Error,
+                    It.IsAny<EventId>(),
+                    It.Is<It.IsAnyType>((v, _) => v.ToString().Contains("Arguments should be both positive.")),
+                    null,
+                    It.IsAny<Func<It.IsAnyType, Exception, string>>()),
+                Times.Once);
         }
     }
 }
