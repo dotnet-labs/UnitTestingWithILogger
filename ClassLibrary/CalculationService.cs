@@ -23,7 +23,7 @@ namespace ClassLibrary
                 _logger.LogError("Arguments should be both positive.");
                 return 0;
             }
-            _logger.LogInformation($"Adding {a} and {b}");
+            _logger.LogInformation("Adding {a} and {b}", a, b);
             return a + b;
         }
     }
