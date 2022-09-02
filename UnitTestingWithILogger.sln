@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29123.88
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32825.248
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClassLibrary", "ClassLibrary\ClassLibrary.csproj", "{E3770D0C-A974-42C8-8FEC-B4F1EE749A29}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClassLibrary", "ClassLibrary\ClassLibrary.csproj", "{E3770D0C-A974-42C8-8FEC-B4F1EE749A29}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClassLibrary.UnitTests", "ClassLibrary.UnitTests\ClassLibrary.UnitTests.csproj", "{7D40B79B-8A8E-445F-A9BB-43DA3B847877}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClassLibrary.UnitTests", "ClassLibrary.UnitTests\ClassLibrary.UnitTests.csproj", "{7D40B79B-8A8E-445F-A9BB-43DA3B847877}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

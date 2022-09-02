@@ -1,4 +1,3 @@
-using System;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
@@ -26,7 +25,7 @@ namespace ClassLibrary.UnitTests
         [TestMethod]
         public void TestWithConsoleLogger()
         {
-            using var loggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
+            using var loggerFactory = LoggerFactory.Create(c => c.AddConsole());
             var logger = loggerFactory.CreateLogger<CalculationService>();
             var svc = new CalculationService(logger);
             var result = svc.AddTwoPositiveNumbers(1, 2);
@@ -46,7 +45,7 @@ namespace ClassLibrary.UnitTests
         public void TestWithDependencyInjectionLogger()
         {
             var services = new ServiceCollection()
-                .AddLogging(config => config.AddConsole())      // can add any logger(s)
+                .AddLogging(config => config.AddConsole())      // can add any other logger(s)
                 .BuildServiceProvider();
             using var loggerFactory = services.GetRequiredService<ILoggerFactory>();
             var svc = new CalculationService(loggerFactory.CreateLogger<CalculationService>());
@@ -66,9 +65,9 @@ namespace ClassLibrary.UnitTests
                 m => m.Log(
                     LogLevel.Information,
                     It.IsAny<EventId>(),
-                    It.Is<It.IsAnyType>((v, _) => v.ToString().Contains("Adding 1 and 2")),
+                    It.Is<It.IsAnyType>((v, _) => v!.ToString()!.Contains("Adding 1 and 2")),
                     null,
-                    It.IsAny<Func<It.IsAnyType, Exception, string>>()),
+                    It.IsAny<Func<It.IsAnyType, Exception?, string>>()),
                 Times.Once);
 
             result = svc.AddTwoPositiveNumbers(-1, 1);
@@ -77,9 +76,9 @@ namespace ClassLibrary.UnitTests
                 m => m.Log(
                     LogLevel.Error,
                     It.IsAny<EventId>(),
-                    It.Is<It.IsAnyType>((v, _) => v.ToString().Contains("Arguments should be both positive.")),
+                    It.Is<It.IsAnyType>((v, _) => v!.ToString()!.Contains("Arguments should be both positive.")),
                     null,
-                    It.IsAny<Func<It.IsAnyType, Exception, string>>()),
+                    It.IsAny<Func<It.IsAnyType, Exception?, string>>()),
                 Times.Once);
         }
     }
